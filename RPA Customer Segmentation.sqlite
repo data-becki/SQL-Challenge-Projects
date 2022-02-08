@@ -57,3 +57,9 @@ WHERE campaign LIKE '%2'
 SELECT email, birthday, age, 
   (created_at - birthday)
 FROM users;
+
+SELECT email, birthday, 
+  JULIANDAY(created_at) - JULIANDAY(birthday) AS age
+FROM users;
+
+cast(strftime('%Y.%m%d', 'now') - strftime('%Y.%m%d', dob) as int)
