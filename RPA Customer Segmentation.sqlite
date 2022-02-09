@@ -36,57 +36,53 @@ WHERE campaign LIKE 'BBB%';
 -- their campaign.
 SELECT email, campaign
 FROM users
-WHERE campaign LIKE '%2'
+WHERE campaign LIKE '%2';
 
 -- 7
 -- Find the emails for all users who received both a campaign and a test. 
 -- These users will have non-empty entries in the 
 -- campaign and test columns.
 
--- This didn't work!
+-- This didn't work!  Because I forgot the semi-colon in the above code! Thanks, Hiren. 
 
--- SELECT email, campaign, test
--- FROM users
--- WHERE campaign IS NOT NULL
---   AND test IS NOT NULL;
+SELECT email, campaign, test
+FROM users
+WHERE campaign IS NOT NULL
+ AND test IS NOT NULL;
 
 -- 8
 -- Challenge
 -- One of the members of the marketing team had an idea of calculating
 -- how old users were when they signed up.
 
--- The following is a list of everything that did not work.  
--- Some of the answer code codecademy provided did not work, so I'm not sure if any of these *actually* don't work.
+-- The following is a list of everything that did not work.  Again, because of the missing semi-colon.
 
--- SELECT email, birthday, 
---   (created_at - birthday) AS age
--- FROM users;
+SELECT email, birthday, 
+  (created_at - birthday) AS age
+FROM users
+LIMIT 10;
 
--- select email, birthday, cast(strftime(’%Y.%m%d’, ‘created_at’) - strftime(’%Y.%m%d’, birthday) as int)
--- from users
--- limit 5;
+SELECT email, birthday, created_at,
+  CAST ((JULIANDAY(created_at) - JULIANDAY(birthday)) / 365 AS int) AS age
+FROM users
+LIMIT 10;
 
--- SELECT email
--- , date(created_at) - date(birthday)
--- FROM users;
-
--- SELECT cast((julianday(created_at) - julianday(birthday)) / 365 as int) as registered_age
+-- SELECT email, cast((julianday(created_at) - julianday(birthday)) / 365 as int) as registered_age
 -- FROM users
 -- LIMIT 10;
 
--- SELECT *, created_at - birthday AS age_at_signup
+-- SELECT CAST(julianday(created_at) - julianday(birthday) as integer) / 365 AS Age
 -- FROM users
+-- LIMIT 10;
 
--- SELECT CAST(julianday(created_at) - julianday(birthday) as integer) / 365 FROM users;
-
--- SELECT CAST(julianday(created_at) - julianday(birthday) as integer) / 365 FROM users;
--- SELECT *,
--- CASE
--- WHEN created_at IS NOT NULL
--- AND birthday IS NOT NULL
--- THEN (created_at - birthday)
--- END AS age
--- FROM users;
+-- SELECT email, created_at, birthday,
+--   CASE
+--     WHEN created_at IS NOT NULL
+--       AND birthday IS NOT NULL
+--     THEN (created_at - birthday)
+--   END AS age
+-- FROM users
+-- LIMIT 10;
 
 -- ALTER TABLE USERS
 -- ADD age INT;
@@ -95,4 +91,5 @@ WHERE campaign LIKE '%2'
 -- WHERE AGE IS NULL;
 
 -- SELECT email, (created_at) - (birthday) AS age
--- FROM users;
+-- FROM users
+-- LIMIT 10;
